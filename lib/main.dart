@@ -20,34 +20,90 @@ class MyApp extends StatelessWidget {
   }
 }
 
-final List<String> myData = List<String>.generate(
-  50,
-  (i) => 'รายการลิสต์ที่ ${i + 1}',
-);
-
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Chapter6'), backgroundColor: Colors.blue),
-      body: ListView.builder(
-        itemCount: myData.length, // ใช้ความยาวของลิสต์ข้อมูลของเรา
-        itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-            leading: const Icon(Icons.label_important_outline),
-            title: Text(myData[index]), // แสดงข้อมูลจากลิสต์
-            subtitle: Text('คำอธิบายสำหรับรายการ $index'),
-            trailing: const Icon(
-              Icons.arrow_forward_ios,
-              size: 16,
-            ), // ไอคอนท้าย (ทางเลือก)
-            onTap: () {
-              print('แตะที่: ${myData[index]} (index $index)');
-            },
-          );
-        },
+      appBar: AppBar(
+        title: const Text(
+          'ปฏิบัติการบทที่ 6 - Scrolling & Stacking',
+        ), // อัปเดต title
+        backgroundColor: Colors.deepOrange, // เปลี่ยนสีตามต้องการ
+      ),
+      body: Stack(
+        children: <Widget>[
+          // รูปภาพพื้นหลัง
+          Image.network(
+            'https://picsum.photos/id/1015/300/300',
+            fit: BoxFit.cover,
+          ),
+
+          // Text ที่กำหนดตำแหน่งไว้มุมบนซ้าย
+          Positioned(
+            top: 10.0,
+            left: 10.0,
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              color: Colors.black.withOpacity(0.5), // พื้นหลังกึ่งโปร่งใส
+              child: const Text(
+                'Top Left',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+
+          // Top right
+          Positioned(
+            top: 10.0,
+            right: 10.0,
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              color: Colors.black.withOpacity(0.5), // พื้นหลังกึ่งโปร่งใส
+              child: const Text(
+                'Top Right',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+
+          // Icon ที่กำหนดตำแหน่งไว้มุมล่างขวา
+          Positioned(
+            bottom: 10.0,
+            right: 10.0,
+            child: Container(
+              padding: const EdgeInsets.all(4.0),
+              decoration: BoxDecoration(
+                color: Colors.red,
+                shape: BoxShape.circle, // ทำให้เป็นป้ายวงกลม
+              ),
+              child: const Icon(
+                Icons.notifications,
+                color: Colors.white,
+                size: 20,
+              ),
+            ),
+          ),
+
+          // Icon ที่กำหนดตำแหน่งไว้มุมล่างซ้าย
+          Positioned(
+            bottom: 10.0,
+            left: 10.0,
+            child: Container(
+              padding: const EdgeInsets.all(4.0),
+              decoration: BoxDecoration(
+                color: Colors.red,
+                shape: BoxShape.circle, // ทำให้เป็นป้ายวงกลม
+              ),
+              child: const Icon(
+                Icons.notifications,
+                color: Colors.white,
+                size: 20,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
